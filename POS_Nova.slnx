@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="POS_Nova.Api/POS_Nova.Api.csproj" />
+  <Project Path="POS_Nova.Application/POS_Nova.Application.csproj" />
+  <Project Path="POS_Nova.Domain/POS_Nova.Domain.csproj" />
+  <Project Path="POS_Nova.Infrastructure/POS_Nova.Infrastructure.csproj" />
+</Solution>
