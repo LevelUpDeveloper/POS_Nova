@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\POS_Nova.Application\POS_Nova.Application.csproj" />
+    <ProjectReference Include="..\POS_Nova.Domain\POS_Nova.Domain.csproj" />
+    <ProjectReference Include="..\POS_Nova.Infrastructure\POS_Nova.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

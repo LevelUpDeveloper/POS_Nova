@@ -1,4 +1,14 @@
 <Solution>
+  <Folder Name="/DatabaseScripts/">
+    <File Path="DatabaseScripts/01_Database.sql" />
+    <File Path="DatabaseScripts/02_Schemas.sql" />
+    <File Path="DatabaseScripts/03_Core_Domain.sql.sql" />
+    <File Path="DatabaseScripts/04_Reference_Geography.sql" />
+    <File Path="DatabaseScripts/05_Security.sql" />
+    <File Path="DatabaseScripts/06_Inventory.sql" />
+    <File Path="DatabaseScripts/07_Sales_Master.sql" />
+    <File Path="DatabaseScripts/08_Transactions.sql" />
+  </Folder>
   <Project Path="POS_Nova.Api/POS_Nova.Api.csproj" />
   <Project Path="POS_Nova.Application/POS_Nova.Application.csproj" />
   <Project Path="POS_Nova.Domain/POS_Nova.Domain.csproj" />
