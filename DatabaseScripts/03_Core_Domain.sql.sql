@@ -107,7 +107,7 @@ BEGIN TRY
 		(
 			Id INT IDENTITY(1,1) NOT NULL,
 			Name NVARCHAR(50) NOT NULL,
-			Description NVARCHAR(50) NULL,
+			Description NVARCHAR(150) NULL,
 			IsActive BIT NOT NULL 
 				CONSTRAINT DF_Role_IsActive DEFAULT 1,
 			
@@ -145,7 +145,7 @@ BEGIN TRY
 		(
 			Id INT IDENTITY(1,1) NOT NULL,
 			Name NVARCHAR(100) NOT NULL,
-			Description NVARCHAR(255) NULL,
+			Description NVARCHAR(450) NULL,
 			IsActive BIT NOT NULL 
 				CONSTRAINT DF_Category_IsActive DEFAULT 1,
 
@@ -192,7 +192,7 @@ BEGIN TRY
 			Id INT IDENTITY(1,1) NOT NULL,
 			Name NVARCHAR(150) NOT NULL,
 			DocumentNumber NVARCHAR(20) NOT NULL,
-			Address NVARCHAR(MAX) NULL,
+			Address NVARCHAR(500) NULL,
 			Phone NVARCHAR(20) NULL,
 			Email NVARCHAR(255) NULL,
 			IsActive BIT NOT NULL 
@@ -233,7 +233,7 @@ BEGIN TRY
 			BusinessId INT NOT NULL,
 			DepartmentId INT NOT NULL,
 			Name NVARCHAR(150) NOT NULL,
-			Address NVARCHAR(MAX) NULL,
+			Address NVARCHAR(500) NULL,
 			Phone NVARCHAR(20) NULL,
 			Email NVARCHAR(255) NULL,
 
