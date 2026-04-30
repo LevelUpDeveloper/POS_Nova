@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using POS_Nova.Application.Interfaces.Persistence;
 using POS_Nova.Domain.Entities;
 using POS_Nova.Infrastructure.DataPersistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace POS_Nova.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    internal class UserRepository
     {
-
         private readonly AppDbContext _context;
 
-        public ProductRepository(AppDbContext context)
+        public UserRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task AddAsync(Product product)
+
+        public async Task<User?> GetByEmailAsync(string email)
         {
-        await _context.Products.AddAsync(product);
-        await _context.SaveChangesAsync();
+            return await _context.User
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

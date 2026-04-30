@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Features\Auth\Commands\Login\" />
+    <Folder Include="Features\Auth\Commands\Register\" />
     <Folder Include="Features\Products\Commands\" />
     <Folder Include="Features\Products\Handlers\" />
     <Folder Include="Features\Products\Queries\" />
+    <Folder Include="Interfaces\External\" />
   </ItemGroup>
 
   <ItemGroup>

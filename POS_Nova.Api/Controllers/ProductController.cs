@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using POS_Nova.Application.Contracts;
 using POS_Nova.Application.Features.Products.DTOs;
+using POS_Nova.Application.Interfaces.Persistence;
 using POS_Nova.Domain.Entities;
 
 namespace POS_Nova.Api.Controllers

@@ -16,5 +16,6 @@ namespace POS_Nova.Infrastructure.DataPersistence
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

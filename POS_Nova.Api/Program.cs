@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using POS_Nova.Infrastructure.DataPersistence;
-using POS_Nova.Application.Contracts;
-using POS_Nova.Infrastructure.Repositories;
+using POS_Nova.Infrastructure.DependencyInjection;
+
 
 namespace POS_Nova.Api
 {
@@ -11,19 +10,14 @@ namespace POS_Nova.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("POS_NovaConnection")
-                );
-            });
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // BD Conection
+            builder.Services.AddInfrastructure(builder.Configuration);
+
 
             var app = builder.Build();
 
@@ -36,6 +30,7 @@ namespace POS_Nova.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
