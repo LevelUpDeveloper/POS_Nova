@@ -44,6 +44,6 @@ Ejecutar los scripts en el orden indicado por su prefijo numérico.:
 
 - [x] Estructura inicial creada
 - [x] Scripts de base de datos definidos
-- [ ] Implementación de API
-- [ ] Integración con EF Core
+- [x] Implementación de API
+- [x] Integración con EF Core
 - [ ] Casos de uso (Application Layer)
