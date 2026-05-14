@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/DatabaseScripts/">
+    <File Path="../../../Scripts/DatabaseScripts/01_Versión funcional/09_Create_User_Update_Table_User.sql" />
     <File Path="DatabaseScripts/01_Database.sql" />
     <File Path="DatabaseScripts/02_Schemas.sql" />
     <File Path="DatabaseScripts/03_Core_Domain.sql.sql" />
