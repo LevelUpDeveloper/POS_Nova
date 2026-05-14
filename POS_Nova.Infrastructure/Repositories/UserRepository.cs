@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using POS_Nova.Domain.Entities;
 using POS_Nova.Infrastructure.DataPersistence;
 using Microsoft.EntityFrameworkCore;
+using POS_Nova.Application.Interfaces.Persistence;
 
 namespace POS_Nova.Infrastructure.Repositories
 {
-    internal class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
 
@@ -19,11 +20,23 @@ namespace POS_Nova.Infrastructure.Repositories
         }
 
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User?> GetByEmailOrUserNameAsync(string emailOrUserName)
         {
+
             return await _context.User
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.Email == email);
+                .Include(u => u.UserRole)
+                    .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u =>
+                    u.Email == emailOrUserName
+                    || u.UserName == emailOrUserName
+                );
         }
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.User.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

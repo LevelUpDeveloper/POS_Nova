@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using POS_Nova.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,9 @@ namespace POS_Nova.Infrastructure.DataPersistence
         {
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Product { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
     }
 }

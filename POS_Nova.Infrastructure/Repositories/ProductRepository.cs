@@ -21,7 +21,7 @@ namespace POS_Nova.Infrastructure.Repositories
 
         public async Task AddAsync(Product product)
         {
-        await _context.Products.AddAsync(product);
+        await _context.Product.AddAsync(product);
         await _context.SaveChangesAsync();
         }
     }

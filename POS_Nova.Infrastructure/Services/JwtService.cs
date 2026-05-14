@@ -30,12 +30,21 @@ namespace POS_Nova.Infrastructure.Services
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var RolesClaims = user.UserRole
+                .Select(ur => new Claim(
+                    ClaimTypes.Role,
+                    ur.Role.Name))
+                .ToList();
+
+
+            var claims = new List<Claim>
             {
             new Claim("userId", user.Id.ToString()),
             new Claim("email", user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
-            };
+            }
+            .Concat(RolesClaims)
+            .ToList();
+
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JwtSettings:Issuer"],
