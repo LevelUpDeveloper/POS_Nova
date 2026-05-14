@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/DatabaseScripts/">
-    <File Path="../../../Scripts/DatabaseScripts/01_Versión funcional/09_Create_User_Update_Table_User.sql" />
     <File Path="DatabaseScripts/01_Database.sql" />
     <File Path="DatabaseScripts/02_Schemas.sql" />
     <File Path="DatabaseScripts/03_Core_Domain.sql.sql" />
@@ -9,6 +8,7 @@
     <File Path="DatabaseScripts/06_Inventory.sql" />
     <File Path="DatabaseScripts/07_Sales_Master.sql" />
     <File Path="DatabaseScripts/08_Transactions.sql" />
+    <File Path="DatabaseScripts/09_Create_User_Update_Table_User.sql" />
   </Folder>
   <Project Path="POS_Nova.Api/POS_Nova.Api.csproj" />
   <Project Path="POS_Nova.Application/POS_Nova.Application.csproj" />
