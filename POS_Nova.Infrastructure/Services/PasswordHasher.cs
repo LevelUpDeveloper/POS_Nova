@@ -9,9 +9,15 @@ namespace POS_Nova.Infrastructure.Services
 {
     public class PasswordHasher : IPasswordHasher
     {
-        public bool verify(string password, string hash)
+
+        public string HashPassword(string password)
         {
-            Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("123456"));
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        public bool Verify(string password, string hash)
+        {
+            //Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("123456"));
             return BCrypt.Net.BCrypt.Verify(password, hash);
         }
     }

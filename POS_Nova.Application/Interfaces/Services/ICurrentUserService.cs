@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace POS_Nova.Application.Interfaces.Services
 {
-    public interface IPasswordHasher
+    public interface ICurrentUserService
     {
-        string HashPassword(string password);
-        bool Verify(string password, string hash);
+        int UserId { get; }
+        string? Email { get; }
+        bool IsAuthenticated { get; }
+
+        IEnumerable<string> Roles { get; }
     }
 }

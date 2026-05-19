@@ -19,7 +19,7 @@ namespace POS_Nova.Infrastructure.Repositories
             _context = context;
         }
 
-
+        // Login Methods
         public async Task<User?> GetByEmailOrUserNameAsync(string emailOrUserName)
         {
 
@@ -38,5 +38,22 @@ namespace POS_Nova.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        // Registration methods
+        public async Task<bool> ExistByEmail(string email)
+        {
+            return await _context.User.AnyAsync(u => u.Email == email);
+        }
+
+        public async Task<bool> ExistByUserName(string userName)
+        {
+            return await _context.User.AnyAsync(u => u.UserName == userName);
+        }
+
+        public async Task<User> CreateAsync(User user)
+        {
+            await _context.User.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }

@@ -9,8 +9,15 @@ namespace POS_Nova.Application.Interfaces.Persistence
 {
     public interface IUserRepository
     {
-        Task<User?> GetByEmailOrUserNameAsync(string value);
+        // Login
+        Task<User?> GetByEmailOrUserNameAsync(string emailOrUserName);
 
         Task UpdateAsync(User user);
+
+
+        // Registration
+        Task<bool> ExistByEmail(string email);
+        Task<bool> ExistByUserName(string userName);
+        Task<User> CreateAsync(User user);
     }
 }

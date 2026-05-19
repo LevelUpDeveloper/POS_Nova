@@ -46,7 +46,7 @@ namespace POS_Nova.Application.Features.Auth.UseCases
             // 3. Validate password
             //Console.WriteLine($"Password input: {loginRequest.Password}");
             //Console.WriteLine($"Hash DB: {user.PasswordHash}");
-            //var validPassword = _hasher.verify(loginRequest.Password, user.PasswordHash);
+            var validPassword = _hasher.Verify(loginRequest.Password, user.PasswordHash);
 
             //if (!validPassword)
             //{

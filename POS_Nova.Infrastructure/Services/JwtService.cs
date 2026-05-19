@@ -28,7 +28,7 @@ namespace POS_Nova.Infrastructure.Services
                 Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"])
             );
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var RolesClaims = user.UserRole
                 .Select(ur => new Claim(
@@ -39,11 +39,15 @@ namespace POS_Nova.Infrastructure.Services
 
             var claims = new List<Claim>
             {
-            new Claim("userId", user.Id.ToString()),
-            new Claim("email", user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+
+                new Claim(JwtRegisteredClaimNames.Jti,
+                   Guid.NewGuid().ToString())
             }
-            .Concat(RolesClaims)
-            .ToList();
+            .Concat(RolesClaims);
 
 
             var token = new JwtSecurityToken(
@@ -53,7 +57,7 @@ namespace POS_Nova.Infrastructure.Services
                 expires: DateTime.UtcNow.AddMinutes(
                     Convert.ToDouble(_configuration["JwtSettings:DurationInMinutes"])
                 ),
-                signingCredentials: creds
+                signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);

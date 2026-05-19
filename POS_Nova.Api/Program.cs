@@ -5,6 +5,9 @@ using POS_Nova.Application.Interfaces.Services;
 using POS_Nova.Infrastructure.DependencyInjection;
 using POS_Nova.Infrastructure.Repositories;
 using POS_Nova.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 namespace POS_Nova.Api
@@ -18,10 +21,40 @@ namespace POS_Nova.Api
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            // Swagger configuration for JWT Authentication
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Escribe: Bearer {tu token}"
+                });
+
+                c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            {
+            {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+            }
+            });
+            });
+
 
             // Use Cases
             builder.Services.AddScoped<LoginService>();
+            builder.Services.AddScoped<RegisterUserService>();
 
             // Repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -30,7 +63,55 @@ namespace POS_Nova.Api
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
             builder.Services.AddScoped<IJwtService, JwtService>();
 
-            // Database Conection
+
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<ICurrentUserService,
+                CurrentUserService>();
+
+            // AUTHENTICATION 
+            builder.Services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(
+                                builder.Configuration["JwtSettings:Key"]!
+                            )
+                        ),
+
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
+
+            // Authorization policies
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdmin",
+                    policy => policy.RequireRole("Admin"));
+
+                options.AddPolicy("RequireManager",
+                    policy => policy.RequireRole("Manager"));
+
+                options.AddPolicy("CanManageProducts",
+                    policy => policy.RequireRole("Admin", "Manager"));
+
+                options.AddPolicy("CanManageUser",
+                    policy => policy.RequireRole("Admin", "Manager"));
+            });
+
+
+            // Database Conection Infraestructura
             builder.Services.AddInfrastructure(builder.Configuration);
 
 
@@ -43,8 +124,10 @@ namespace POS_Nova.Api
                 app.UseSwaggerUI();
             }
 
+
             app.UseHttpsRedirection();
 
+            // Polity Authorization
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contracts\**" />
+    <EmbeddedResource Remove="Contracts\**" />
+    <None Remove="Contracts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Contracts\" />
     <Folder Include="Features\Auth\Commands\Login\" />
     <Folder Include="Features\Auth\Commands\Register\" />
     <Folder Include="Features\Products\Commands\" />
